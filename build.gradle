@@ -1,0 +1,114 @@
+plugins {
+    id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+def minecraftParts = project.minecraft_version.toString().tokenize('.').collect { it as int }
+def legacyInputApi = minecraftParts.size() < 3 || minecraftParts[2] <= 8
+
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        "glyphcraft" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
+if (legacyInputApi) {
+    sourceSets.client.java.srcDir("src/clientLegacy/java")
+    sourceSets.client.java.exclude("ru/zohov/glyphcraft/mixin/ContainerEventHandlerMixin.java")
+    sourceSets.client.java.exclude("ru/zohov/glyphcraft/mixin/SignEditScreenMixin.java")
+}
+
+repositories { }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mixins_config", legacyInputApi ? "glyphcraft.legacy.mixins.json" : "glyphcraft.client.mixins.json"
+    filesMatching("fabric.mod.json") {
+        expand "version": inputs.properties.version,
+                "mixins_config": inputs.properties.mixins_config
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+    inputs.property "archivesName", project.base.archivesName
+    from("LICENSE") { rename { "${it}_${inputs.properties.archivesName}" } }
+}
+
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+        }
+    }
+}
+
+// A second, genuinely clean client for interoperability checks.  It uses the
+// same mapped Minecraft runtime and assets as runClient, but deliberately
+// removes Fabric, project classes/resources and all remapped mod jars from the
+// classpath.  This lets us open the same copied test world as a player who has
+// no GlyphCraft installed.
+def vanillaClientDir = file("clients/without-mod")
+tasks.register("runVanillaClient", JavaExec) {
+    group = "minecraft"
+    description = "Run a clean Minecraft client without GlyphCraft"
+    dependsOn("configureClientLaunch", "downloadAssets")
+    mainClass = "net.minecraft.client.main.Main"
+    workingDir vanillaClientDir
+
+    classpath = files(configurations.clientRuntimeClasspath, configurations.minecraftClientOnlyNamedRuntime).filter { entry ->
+        String path = entry.absolutePath.replace('\\', '/').toLowerCase(Locale.ROOT)
+        String name = entry.name.toLowerCase(Locale.ROOT)
+        !(path.contains('/build/classes/')
+                || path.contains('/build/resources/')
+                || name.contains('glyphcraft'))
+    }
+
+    doFirst {
+        vanillaClientDir.mkdirs()
+        File natives = file("run/natives")
+        jvmArgs("-Xmx2G", "-Djava.library.path=${natives.absolutePath}",
+                "-Dorg.lwjgl.librarypath=${natives.absolutePath}")
+        args("--username", "VanillaTester",
+                "--version", "1.21.10",
+                "--gameDir", vanillaClientDir.absolutePath,
+                "--assetsDir", file(".gradle/loom-cache/assets").absolutePath,
+                "--assetIndex", "1.21.10-27",
+                "--uuid", "00000000-0000-0000-0000-000000000002",
+                "--accessToken", "0",
+                "--clientId", "glyphcraft-vanilla-test",
+                "--xuid", "0",
+                "--userType", "legacy",
+                "--versionType", "release",
+                "--quickPlaySingleplayer", "GlyphCraft-Compare",
+                "--width", "960", "--height", "540")
+    }
+}

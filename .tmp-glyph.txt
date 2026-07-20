@@ -1,0 +1,135 @@
+﻿Compiled from "BitmapProvider.java"
+final class net.minecraft.client.gui.font.providers.BitmapProvider$Glyph extends java.lang.Record implements com.mojang.blaze3d.font.UnbakedGlyph {
+  final float scale;
+
+  final com.mojang.blaze3d.platform.NativeImage image;
+
+  final int offsetX;
+
+  final int offsetY;
+
+  final int width;
+
+  final int height;
+
+  private final int advance;
+
+  final int ascent;
+
+  net.minecraft.client.gui.font.providers.BitmapProvider$Glyph(float, com.mojang.blaze3d.platform.NativeImage, int, int, int, int, int, int);
+    Code:
+         0: aload_0
+         1: invokespecial #44                 // Method java/lang/Record."<init>":()V
+         4: aload_0
+         5: fload_1
+         6: putfield      #46                 // Field scale:F
+         9: aload_0
+        10: aload_2
+        11: putfield      #48                 // Field image:Lcom/mojang/blaze3d/platform/NativeImage;
+        14: aload_0
+        15: iload_3
+        16: putfield      #50                 // Field offsetX:I
+        19: aload_0
+        20: iload         4
+        22: putfield      #52                 // Field offsetY:I
+        25: aload_0
+        26: iload         5
+        28: putfield      #54                 // Field width:I
+        31: aload_0
+        32: iload         6
+        34: putfield      #56                 // Field height:I
+        37: aload_0
+        38: iload         7
+        40: putfield      #58                 // Field advance:I
+        43: aload_0
+        44: iload         8
+        46: putfield      #60                 // Field ascent:I
+        49: return
+
+  public com.mojang.blaze3d.font.GlyphInfo info();
+    Code:
+         0: aload_0
+         1: getfield      #58                 // Field advance:I
+         4: i2f
+         5: invokestatic  #70                 // InterfaceMethod com/mojang/blaze3d/font/GlyphInfo.simple:(F)Lcom/mojang/blaze3d/font/GlyphInfo;
+         8: areturn
+
+  public net.minecraft.client.gui.font.glyphs.BakedGlyph bake(com.mojang.blaze3d.font.UnbakedGlyph$Stitcher);
+    Code:
+         0: aload_1
+         1: aload_0
+         2: invokevirtual #75                 // Method info:()Lcom/mojang/blaze3d/font/GlyphInfo;
+         5: new           #12                 // class net/minecraft/client/gui/font/providers/BitmapProvider$Glyph$1
+         8: dup
+         9: aload_0
+        10: invokespecial #78                 // Method net/minecraft/client/gui/font/providers/BitmapProvider$Glyph$1."<init>":(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Glyph;)V
+        13: invokeinterface #82,  3           // InterfaceMethod com/mojang/blaze3d/font/UnbakedGlyph$Stitcher.stitch:(Lcom/mojang/blaze3d/font/GlyphInfo;Lcom/mojang/blaze3d/font/GlyphBitmap;)Lnet/minecraft/client/gui/font/glyphs/BakedGlyph;
+        18: areturn
+
+  public final java.lang.String toString();
+    Code:
+         0: aload_0
+         1: invokedynamic #105,  0            // InvokeDynamic #0:toString:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Glyph;)Ljava/lang/String;
+         6: areturn
+
+  public final int hashCode();
+    Code:
+         0: aload_0
+         1: invokedynamic #110,  0            // InvokeDynamic #0:hashCode:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Glyph;)I
+         6: ireturn
+
+  public final boolean equals(java.lang.Object);
+    Code:
+         0: aload_0
+         1: aload_1
+         2: invokedynamic #116,  0            // InvokeDynamic #0:equals:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Glyph;Ljava/lang/Object;)Z
+         7: ireturn
+
+  public float scale();
+    Code:
+         0: aload_0
+         1: getfield      #46                 // Field scale:F
+         4: freturn
+
+  public com.mojang.blaze3d.platform.NativeImage image();
+    Code:
+         0: aload_0
+         1: getfield      #48                 // Field image:Lcom/mojang/blaze3d/platform/NativeImage;
+         4: areturn
+
+  public int offsetX();
+    Code:
+         0: aload_0
+         1: getfield      #50                 // Field offsetX:I
+         4: ireturn
+
+  public int offsetY();
+    Code:
+         0: aload_0
+         1: getfield      #52                 // Field offsetY:I
+         4: ireturn
+
+  public int width();
+    Code:
+         0: aload_0
+         1: getfield      #54                 // Field width:I
+         4: ireturn
+
+  public int height();
+    Code:
+         0: aload_0
+         1: getfield      #56                 // Field height:I
+         4: ireturn
+
+  public int advance();
+    Code:
+         0: aload_0
+         1: getfield      #58                 // Field advance:I
+         4: ireturn
+
+  public int ascent();
+    Code:
+         0: aload_0
+         1: getfield      #60                 // Field ascent:I
+         4: ireturn
+}

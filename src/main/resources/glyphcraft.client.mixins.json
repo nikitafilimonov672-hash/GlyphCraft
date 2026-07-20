@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "ru.zohov.glyphcraft.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ScreenMixin",
+    "ContainerEventHandlerMixin",
+    "SignEditScreenMixin",
+    "ChatScreenAccessor",
+    "BookEditScreenAccessor",
+    "SignEditScreenAccessor",
+    "MultiLineEditBoxAccessor",
+    "MultilineTextFieldAccessor"
+  ],
+  "injectors": {"defaultRequire": 1}
+}

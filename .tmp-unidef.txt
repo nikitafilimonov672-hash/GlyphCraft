@@ -1,0 +1,276 @@
+﻿Compiled from "UnihexProvider.java"
+public class net.minecraft.client.gui.font.providers.UnihexProvider$Definition implements net.minecraft.client.gui.font.providers.GlyphProviderDefinition {
+  public static final com.mojang.serialization.MapCodec<net.minecraft.client.gui.font.providers.UnihexProvider$Definition> CODEC;
+
+  private final net.minecraft.resources.ResourceLocation hexFile;
+
+  private final java.util.List<net.minecraft.client.gui.font.providers.UnihexProvider$OverrideRange> sizeOverrides;
+
+  private net.minecraft.client.gui.font.providers.UnihexProvider$Definition(net.minecraft.resources.ResourceLocation, java.util.List<net.minecraft.client.gui.font.providers.UnihexProvider$OverrideRange>);
+    Code:
+         0: aload_0
+         1: invokespecial #67                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #69                 // Field hexFile:Lnet/minecraft/resources/ResourceLocation;
+         9: aload_0
+        10: aload_2
+        11: putfield      #71                 // Field sizeOverrides:Ljava/util/List;
+        14: return
+
+  public net.minecraft.client.gui.font.providers.GlyphProviderType type();
+    Code:
+         0: getstatic     #81                 // Field net/minecraft/client/gui/font/providers/GlyphProviderType.UNIHEX:Lnet/minecraft/client/gui/font/providers/GlyphProviderType;
+         3: areturn
+
+  public com.mojang.datafixers.util.Either<net.minecraft.client.gui.font.providers.GlyphProviderDefinition$Loader, net.minecraft.client.gui.font.providers.GlyphProviderDefinition$Reference> unpack();
+    Code:
+         0: aload_0
+         1: invokedynamic #100,  0            // InvokeDynamic #0:load:(Lnet/minecraft/client/gui/font/providers/UnihexProvider$Definition;)Lnet/minecraft/client/gui/font/providers/GlyphProviderDefinition$Loader;
+         6: invokestatic  #106                // Method com/mojang/datafixers/util/Either.left:(Ljava/lang/Object;)Lcom/mojang/datafixers/util/Either;
+         9: areturn
+
+  private com.mojang.blaze3d.font.GlyphProvider load(net.minecraft.server.packs.resources.ResourceManager) throws java.io.IOException;
+    Code:
+         0: aload_1
+         1: aload_0
+         2: getfield      #69                 // Field hexFile:Lnet/minecraft/resources/ResourceLocation;
+         5: invokeinterface #117,  2          // InterfaceMethod net/minecraft/server/packs/resources/ResourceManager.open:(Lnet/minecraft/resources/ResourceLocation;)Ljava/io/InputStream;
+        10: astore_2
+        11: aload_0
+        12: aload_2
+        13: invokevirtual #121                // Method loadData:(Ljava/io/InputStream;)Lnet/minecraft/client/gui/font/providers/UnihexProvider;
+        16: astore_3
+        17: aload_2
+        18: ifnull        25
+        21: aload_2
+        22: invokevirtual #126                // Method java/io/InputStream.close:()V
+        25: aload_3
+        26: areturn
+        27: astore_3
+        28: aload_2
+        29: ifnull        47
+        32: aload_2
+        33: invokevirtual #126                // Method java/io/InputStream.close:()V
+        36: goto          47
+        39: astore        4
+        41: aload_3
+        42: aload         4
+        44: invokevirtual #130                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+        47: aload_3
+        48: athrow
+      Exception table:
+         from    to  target type
+            11    17    27   Class java/lang/Throwable
+            32    36    39   Class java/lang/Throwable
+
+  private net.minecraft.client.gui.font.providers.UnihexProvider loadData(java.io.InputStream) throws java.io.IOException;
+    Code:
+         0: new           #32                 // class net/minecraft/client/gui/font/CodepointMap
+         3: dup
+         4: invokedynamic #145,  0            // InvokeDynamic #1:apply:()Ljava/util/function/IntFunction;
+         9: invokedynamic #152,  0            // InvokeDynamic #2:apply:()Ljava/util/function/IntFunction;
+        14: invokespecial #155                // Method net/minecraft/client/gui/font/CodepointMap."<init>":(Ljava/util/function/IntFunction;Ljava/util/function/IntFunction;)V
+        17: astore_2
+        18: aload_2
+        19: dup
+        20: invokestatic  #161                // Method java/util/Objects.requireNonNull:(Ljava/lang/Object;)Ljava/lang/Object;
+        23: pop
+        24: invokedynamic #172,  0            // InvokeDynamic #3:accept:(Lnet/minecraft/client/gui/font/CodepointMap;)Lnet/minecraft/client/gui/font/providers/UnihexProvider$ReaderOutput;
+        29: astore_3
+        30: new           #174                // class java/util/zip/ZipInputStream
+        33: dup
+        34: aload_1
+        35: invokespecial #177                // Method java/util/zip/ZipInputStream."<init>":(Ljava/io/InputStream;)V
+        38: astore        4
+        40: aload         4
+        42: invokevirtual #181                // Method java/util/zip/ZipInputStream.getNextEntry:()Ljava/util/zip/ZipEntry;
+        45: dup
+        46: astore        5
+        48: ifnull        96
+        51: aload         5
+        53: invokevirtual #187                // Method java/util/zip/ZipEntry.getName:()Ljava/lang/String;
+        56: astore        6
+        58: aload         6
+        60: ldc           #189                // String .hex
+        62: invokevirtual #195                // Method java/lang/String.endsWith:(Ljava/lang/String;)Z
+        65: ifeq          93
+        68: getstatic     #199                // Field net/minecraft/client/gui/font/providers/UnihexProvider.LOGGER:Lorg/slf4j/Logger;
+        71: ldc           #201                // String Found {}, loading
+        73: aload         6
+        75: invokeinterface #207,  3          // InterfaceMethod org/slf4j/Logger.info:(Ljava/lang/String;Ljava/lang/Object;)V
+        80: new           #209                // class net/minecraft/util/FastBufferedInputStream
+        83: dup
+        84: aload         4
+        86: invokespecial #210                // Method net/minecraft/util/FastBufferedInputStream."<init>":(Ljava/io/InputStream;)V
+        89: aload_3
+        90: invokestatic  #214                // Method net/minecraft/client/gui/font/providers/UnihexProvider.readFromStream:(Ljava/io/InputStream;Lnet/minecraft/client/gui/font/providers/UnihexProvider$ReaderOutput;)V
+        93: goto          40
+        96: new           #32                 // class net/minecraft/client/gui/font/CodepointMap
+        99: dup
+       100: invokedynamic #221,  0            // InvokeDynamic #4:apply:()Ljava/util/function/IntFunction;
+       105: invokedynamic #228,  0            // InvokeDynamic #5:apply:()Ljava/util/function/IntFunction;
+       110: invokespecial #155                // Method net/minecraft/client/gui/font/CodepointMap."<init>":(Ljava/util/function/IntFunction;Ljava/util/function/IntFunction;)V
+       113: astore        6
+       115: aload_0
+       116: getfield      #71                 // Field sizeOverrides:Ljava/util/List;
+       119: invokeinterface #234,  1          // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+       124: astore        7
+       126: aload         7
+       128: invokeinterface #240,  1          // InterfaceMethod java/util/Iterator.hasNext:()Z
+       133: ifeq          232
+       136: aload         7
+       138: invokeinterface #244,  1          // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+       143: checkcast     #18                 // class net/minecraft/client/gui/font/providers/UnihexProvider$OverrideRange
+       146: astore        8
+       148: aload         8
+       150: getfield      #248                // Field net/minecraft/client/gui/font/providers/UnihexProvider$OverrideRange.from:I
+       153: istore        9
+       155: aload         8
+       157: getfield      #251                // Field net/minecraft/client/gui/font/providers/UnihexProvider$OverrideRange.to:I
+       160: istore        10
+       162: aload         8
+       164: getfield      #255                // Field net/minecraft/client/gui/font/providers/UnihexProvider$OverrideRange.dimensions:Lnet/minecraft/client/gui/font/providers/UnihexProvider$Dimensions;
+       167: astore        11
+       169: iload         9
+       171: istore        12
+       173: iload         12
+       175: iload         10
+       177: if_icmpgt     229
+       180: aload_2
+       181: iload         12
+       183: invokevirtual #258                // Method net/minecraft/client/gui/font/CodepointMap.remove:(I)Ljava/lang/Object;
+       186: checkcast     #24                 // class net/minecraft/client/gui/font/providers/UnihexProvider$LineData
+       189: astore        13
+       191: aload         13
+       193: ifnull        223
+       196: aload         6
+       198: iload         12
+       200: new           #27                 // class net/minecraft/client/gui/font/providers/UnihexProvider$Glyph
+       203: dup
+       204: aload         13
+       206: aload         11
+       208: getfield      #260                // Field net/minecraft/client/gui/font/providers/UnihexProvider$Dimensions.left:I
+       211: aload         11
+       213: getfield      #263                // Field net/minecraft/client/gui/font/providers/UnihexProvider$Dimensions.right:I
+       216: invokespecial #266                // Method net/minecraft/client/gui/font/providers/UnihexProvider$Glyph."<init>":(Lnet/minecraft/client/gui/font/providers/UnihexProvider$LineData;II)V
+       219: invokevirtual #167                // Method net/minecraft/client/gui/font/CodepointMap.put:(ILjava/lang/Object;)Ljava/lang/Object;
+       222: pop
+       223: iinc          12, 1
+       226: goto          173
+       229: goto          126
+       232: aload_2
+       233: aload         6
+       235: invokedynamic #276,  0            // InvokeDynamic #6:accept:(Lnet/minecraft/client/gui/font/CodepointMap;)Lnet/minecraft/client/gui/font/CodepointMap$Output;
+       240: invokevirtual #280                // Method net/minecraft/client/gui/font/CodepointMap.forEach:(Lnet/minecraft/client/gui/font/CodepointMap$Output;)V
+       243: new           #9                  // class net/minecraft/client/gui/font/providers/UnihexProvider
+       246: dup
+       247: aload         6
+       249: invokespecial #283                // Method net/minecraft/client/gui/font/providers/UnihexProvider."<init>":(Lnet/minecraft/client/gui/font/CodepointMap;)V
+       252: astore        7
+       254: aload         4
+       256: invokevirtual #284                // Method java/util/zip/ZipInputStream.close:()V
+       259: aload         7
+       261: areturn
+       262: astore        5
+       264: aload         4
+       266: invokevirtual #284                // Method java/util/zip/ZipInputStream.close:()V
+       269: goto          281
+       272: astore        6
+       274: aload         5
+       276: aload         6
+       278: invokevirtual #130                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+       281: aload         5
+       283: athrow
+      Exception table:
+         from    to  target type
+            40   254   262   Class java/lang/Throwable
+           264   269   272   Class java/lang/Throwable
+
+  private static void method_51660(net.minecraft.client.gui.font.CodepointMap, int, net.minecraft.client.gui.font.providers.UnihexProvider$LineData);
+    Code:
+         0: aload_2
+         1: invokeinterface #308,  1          // InterfaceMethod net/minecraft/client/gui/font/providers/UnihexProvider$LineData.calculateWidth:()I
+         6: istore_3
+         7: iload_3
+         8: invokestatic  #311                // Method net/minecraft/client/gui/font/providers/UnihexProvider$Dimensions.left:(I)I
+        11: istore        4
+        13: iload_3
+        14: invokestatic  #313                // Method net/minecraft/client/gui/font/providers/UnihexProvider$Dimensions.right:(I)I
+        17: istore        5
+        19: aload_0
+        20: iload_1
+        21: new           #27                 // class net/minecraft/client/gui/font/providers/UnihexProvider$Glyph
+        24: dup
+        25: aload_2
+        26: iload         4
+        28: iload         5
+        30: invokespecial #266                // Method net/minecraft/client/gui/font/providers/UnihexProvider$Glyph."<init>":(Lnet/minecraft/client/gui/font/providers/UnihexProvider$LineData;II)V
+        33: invokevirtual #167                // Method net/minecraft/client/gui/font/CodepointMap.put:(ILjava/lang/Object;)Ljava/lang/Object;
+        36: pop
+        37: return
+
+  private static net.minecraft.client.gui.font.providers.UnihexProvider$Glyph[][] method_51657(int);
+    Code:
+         0: iload_0
+         1: anewarray     #316                // class "[Lnet/minecraft/client/gui/font/providers/UnihexProvider$Glyph;"
+         4: areturn
+
+  private static net.minecraft.client.gui.font.providers.UnihexProvider$Glyph[] method_51664(int);
+    Code:
+         0: iload_0
+         1: anewarray     #27                 // class net/minecraft/client/gui/font/providers/UnihexProvider$Glyph
+         4: areturn
+
+  private static net.minecraft.client.gui.font.providers.UnihexProvider$LineData[][] method_51666(int);
+    Code:
+         0: iload_0
+         1: anewarray     #318                // class "[Lnet/minecraft/client/gui/font/providers/UnihexProvider$LineData;"
+         4: areturn
+
+  private static net.minecraft.client.gui.font.providers.UnihexProvider$LineData[] method_51667(int);
+    Code:
+         0: iload_0
+         1: anewarray     #24                 // class net/minecraft/client/gui/font/providers/UnihexProvider$LineData
+         4: areturn
+
+  private static com.mojang.datafixers.kinds.App method_51659(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+    Code:
+         0: aload_0
+         1: getstatic     #326                // Field net/minecraft/resources/ResourceLocation.CODEC:Lcom/mojang/serialization/Codec;
+         4: ldc_w         #328                // String hex_file
+         7: invokeinterface #334,  2          // InterfaceMethod com/mojang/serialization/Codec.fieldOf:(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;
+        12: invokedynamic #344,  0            // InvokeDynamic #7:apply:()Ljava/util/function/Function;
+        17: invokevirtual #350                // Method com/mojang/serialization/MapCodec.forGetter:(Ljava/util/function/Function;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+        20: getstatic     #351                // Field net/minecraft/client/gui/font/providers/UnihexProvider$OverrideRange.CODEC:Lcom/mojang/serialization/Codec;
+        23: invokeinterface #355,  1          // InterfaceMethod com/mojang/serialization/Codec.listOf:()Lcom/mojang/serialization/Codec;
+        28: ldc_w         #357                // String size_overrides
+        31: invokestatic  #361                // InterfaceMethod java/util/List.of:()Ljava/util/List;
+        34: invokeinterface #365,  3          // InterfaceMethod com/mojang/serialization/Codec.optionalFieldOf:(Ljava/lang/String;Ljava/lang/Object;)Lcom/mojang/serialization/MapCodec;
+        39: invokedynamic #372,  0            // InvokeDynamic #8:apply:()Ljava/util/function/Function;
+        44: invokevirtual #350                // Method com/mojang/serialization/MapCodec.forGetter:(Ljava/util/function/Function;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+        47: invokevirtual #376                // Method com/mojang/serialization/codecs/RecordCodecBuilder$Instance.group:(Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;)Lcom/mojang/datafixers/Products$P2;
+        50: aload_0
+        51: invokedynamic #386,  0            // InvokeDynamic #9:apply:()Ljava/util/function/BiFunction;
+        56: invokevirtual #389                // Method com/mojang/datafixers/Products$P2.apply:(Lcom/mojang/datafixers/kinds/Applicative;Ljava/util/function/BiFunction;)Lcom/mojang/datafixers/kinds/App;
+        59: areturn
+
+  private static java.util.List method_51661(net.minecraft.client.gui.font.providers.UnihexProvider$Definition);
+    Code:
+         0: aload_0
+         1: getfield      #71                 // Field sizeOverrides:Ljava/util/List;
+         4: areturn
+
+  private static net.minecraft.resources.ResourceLocation method_51665(net.minecraft.client.gui.font.providers.UnihexProvider$Definition);
+    Code:
+         0: aload_0
+         1: getfield      #69                 // Field hexFile:Lnet/minecraft/resources/ResourceLocation;
+         4: areturn
+
+  static {};
+    Code:
+         0: invokedynamic #397,  0            // InvokeDynamic #10:apply:()Ljava/util/function/Function;
+         5: invokestatic  #401                // Method com/mojang/serialization/codecs/RecordCodecBuilder.mapCodec:(Ljava/util/function/Function;)Lcom/mojang/serialization/MapCodec;
+         8: putstatic     #403                // Field CODEC:Lcom/mojang/serialization/MapCodec;
+        11: return
+}

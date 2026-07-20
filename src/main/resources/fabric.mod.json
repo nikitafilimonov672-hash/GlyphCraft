@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "glyphcraft",
+  "version": "${version}",
+  "name": "GlyphCraft",
+  "description": "Надёжный редактор символов, книг и текста для Minecraft.",
+  "authors": ["zohov"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "main": ["ru.zohov.glyphcraft.GlyphCraftMod"],
+    "client": ["ru.zohov.glyphcraft.client.GlyphCraftClient"]
+  },
+  "mixins": [
+    {
+      "config": "${mixins_config}",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21 <=1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

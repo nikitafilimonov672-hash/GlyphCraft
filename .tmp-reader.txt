@@ -1,0 +1,4 @@
+﻿Compiled from "UnihexProvider.java"
+public interface net.minecraft.client.gui.font.providers.UnihexProvider$ReaderOutput {
+  public abstract void accept(int, net.minecraft.client.gui.font.providers.UnihexProvider$LineData);
+}

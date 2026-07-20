@@ -1,0 +1,501 @@
+﻿Compiled from "BitmapProvider.java"
+public final class net.minecraft.client.gui.font.providers.BitmapProvider$Definition extends java.lang.Record implements net.minecraft.client.gui.font.providers.GlyphProviderDefinition {
+  private final net.minecraft.resources.ResourceLocation file;
+
+  private final int height;
+
+  private final int ascent;
+
+  private final int[][] codepointGrid;
+
+  private static final com.mojang.serialization.Codec<int[][]> CODEPOINT_GRID_CODEC;
+
+  public static final com.mojang.serialization.MapCodec<net.minecraft.client.gui.font.providers.BitmapProvider$Definition> CODEC;
+
+  public net.minecraft.client.gui.font.providers.BitmapProvider$Definition(net.minecraft.resources.ResourceLocation, int, int, int[][]);
+    Code:
+         0: aload_0
+         1: invokespecial #61                 // Method java/lang/Record."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #63                 // Field file:Lnet/minecraft/resources/ResourceLocation;
+         9: aload_0
+        10: iload_2
+        11: putfield      #65                 // Field height:I
+        14: aload_0
+        15: iload_3
+        16: putfield      #67                 // Field ascent:I
+        19: aload_0
+        20: aload         4
+        22: putfield      #69                 // Field codepointGrid:[[I
+        25: return
+
+  private static com.mojang.serialization.DataResult<int[][]> validateDimensions(int[][]);
+    Code:
+         0: aload_0
+         1: arraylength
+         2: istore_1
+         3: iload_1
+         4: ifne          16
+         7: invokedynamic #93,  0             // InvokeDynamic #0:get:()Ljava/util/function/Supplier;
+        12: invokestatic  #99                 // InterfaceMethod com/mojang/serialization/DataResult.error:(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;
+        15: areturn
+        16: aload_0
+        17: iconst_0
+        18: aaload
+        19: astore_2
+        20: aload_2
+        21: arraylength
+        22: istore_3
+        23: iload_3
+        24: ifne          36
+        27: invokedynamic #104,  0            // InvokeDynamic #1:get:()Ljava/util/function/Supplier;
+        32: invokestatic  #99                 // InterfaceMethod com/mojang/serialization/DataResult.error:(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;
+        35: areturn
+        36: iconst_1
+        37: istore        4
+        39: iload         4
+        41: iload_1
+        42: if_icmpge     76
+        45: aload_0
+        46: iload         4
+        48: aaload
+        49: astore        5
+        51: aload         5
+        53: arraylength
+        54: iload_3
+        55: if_icmpeq     70
+        58: aload         5
+        60: iload_3
+        61: invokedynamic #112,  0            // InvokeDynamic #2:get:([II)Ljava/util/function/Supplier;
+        66: invokestatic  #99                 // InterfaceMethod com/mojang/serialization/DataResult.error:(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;
+        69: areturn
+        70: iinc          4, 1
+        73: goto          39
+        76: aload_0
+        77: invokestatic  #117                // InterfaceMethod com/mojang/serialization/DataResult.success:(Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;
+        80: areturn
+
+  private static com.mojang.serialization.DataResult<net.minecraft.client.gui.font.providers.BitmapProvider$Definition> validate(net.minecraft.client.gui.font.providers.BitmapProvider$Definition);
+    Code:
+         0: aload_0
+         1: getfield      #67                 // Field ascent:I
+         4: aload_0
+         5: getfield      #65                 // Field height:I
+         8: if_icmple     21
+        11: aload_0
+        12: invokedynamic #133,  0            // InvokeDynamic #3:get:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Definition;)Ljava/util/function/Supplier;
+        17: invokestatic  #99                 // InterfaceMethod com/mojang/serialization/DataResult.error:(Ljava/util/function/Supplier;)Lcom/mojang/serialization/DataResult;
+        20: areturn
+        21: aload_0
+        22: invokestatic  #117                // InterfaceMethod com/mojang/serialization/DataResult.success:(Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;
+        25: areturn
+
+  public net.minecraft.client.gui.font.providers.GlyphProviderType type();
+    Code:
+         0: getstatic     #141                // Field net/minecraft/client/gui/font/providers/GlyphProviderType.BITMAP:Lnet/minecraft/client/gui/font/providers/GlyphProviderType;
+         3: areturn
+
+  public com.mojang.datafixers.util.Either<net.minecraft.client.gui.font.providers.GlyphProviderDefinition$Loader, net.minecraft.client.gui.font.providers.GlyphProviderDefinition$Reference> unpack();
+    Code:
+         0: aload_0
+         1: invokedynamic #153,  0            // InvokeDynamic #4:load:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Definition;)Lnet/minecraft/client/gui/font/providers/GlyphProviderDefinition$Loader;
+         6: invokestatic  #159                // Method com/mojang/datafixers/util/Either.left:(Ljava/lang/Object;)Lcom/mojang/datafixers/util/Either;
+         9: areturn
+
+  private com.mojang.blaze3d.font.GlyphProvider load(net.minecraft.server.packs.resources.ResourceManager) throws java.io.IOException;
+    Code:
+         0: aload_0
+         1: getfield      #63                 // Field file:Lnet/minecraft/resources/ResourceLocation;
+         4: ldc           #166                // String textures/
+         6: invokevirtual #172                // Method net/minecraft/resources/ResourceLocation.withPrefix:(Ljava/lang/String;)Lnet/minecraft/resources/ResourceLocation;
+         9: astore_2
+        10: aload_1
+        11: aload_2
+        12: invokeinterface #178,  2          // InterfaceMethod net/minecraft/server/packs/resources/ResourceManager.open:(Lnet/minecraft/resources/ResourceLocation;)Ljava/io/InputStream;
+        17: astore_3
+        18: getstatic     #182                // Field com/mojang/blaze3d/platform/NativeImage$Format.RGBA:Lcom/mojang/blaze3d/platform/NativeImage$Format;
+        21: aload_3
+        22: invokestatic  #186                // Method com/mojang/blaze3d/platform/NativeImage.read:(Lcom/mojang/blaze3d/platform/NativeImage$Format;Ljava/io/InputStream;)Lcom/mojang/blaze3d/platform/NativeImage;
+        25: astore        4
+        27: aload         4
+        29: invokevirtual #190                // Method com/mojang/blaze3d/platform/NativeImage.getWidth:()I
+        32: istore        5
+        34: aload         4
+        36: invokevirtual #193                // Method com/mojang/blaze3d/platform/NativeImage.getHeight:()I
+        39: istore        6
+        41: iload         5
+        43: aload_0
+        44: getfield      #69                 // Field codepointGrid:[[I
+        47: iconst_0
+        48: aaload
+        49: arraylength
+        50: idiv
+        51: istore        7
+        53: iload         6
+        55: aload_0
+        56: getfield      #69                 // Field codepointGrid:[[I
+        59: arraylength
+        60: idiv
+        61: istore        8
+        63: aload_0
+        64: getfield      #65                 // Field height:I
+        67: i2f
+        68: iload         8
+        70: i2f
+        71: fdiv
+        72: fstore        9
+        74: new           #195                // class net/minecraft/client/gui/font/CodepointMap
+        77: dup
+        78: invokedynamic #207,  0            // InvokeDynamic #5:apply:()Ljava/util/function/IntFunction;
+        83: invokedynamic #214,  0            // InvokeDynamic #6:apply:()Ljava/util/function/IntFunction;
+        88: invokespecial #217                // Method net/minecraft/client/gui/font/CodepointMap."<init>":(Ljava/util/function/IntFunction;Ljava/util/function/IntFunction;)V
+        91: astore        10
+        93: iconst_0
+        94: istore        11
+        96: iload         11
+        98: aload_0
+        99: getfield      #69                 // Field codepointGrid:[[I
+       102: arraylength
+       103: if_icmpge     259
+       106: iconst_0
+       107: istore        12
+       109: aload_0
+       110: getfield      #69                 // Field codepointGrid:[[I
+       113: iload         11
+       115: aaload
+       116: astore        13
+       118: aload         13
+       120: arraylength
+       121: istore        14
+       123: iconst_0
+       124: istore        15
+       126: iload         15
+       128: iload         14
+       130: if_icmpge     253
+       133: aload         13
+       135: iload         15
+       137: iaload
+       138: istore        16
+       140: iload         12
+       142: iinc          12, 1
+       145: istore        17
+       147: iload         16
+       149: ifne          155
+       152: goto          247
+       155: aload_0
+       156: aload         4
+       158: iload         7
+       160: iload         8
+       162: iload         17
+       164: iload         11
+       166: invokevirtual #224                // Method getActualGlyphWidth:(Lcom/mojang/blaze3d/platform/NativeImage;IIII)I
+       169: istore        18
+       171: aload         10
+       173: iload         16
+       175: new           #20                 // class net/minecraft/client/gui/font/providers/BitmapProvider$Glyph
+       178: dup
+       179: fload         9
+       181: aload         4
+       183: iload         17
+       185: iload         7
+       187: imul
+       188: iload         11
+       190: iload         8
+       192: imul
+       193: iload         7
+       195: iload         8
+       197: ldc2_w        #225                // double 0.5d
+       200: iload         18
+       202: i2f
+       203: fload         9
+       205: fmul
+       206: f2d
+       207: dadd
+       208: d2i
+       209: iconst_1
+       210: iadd
+       211: aload_0
+       212: getfield      #67                 // Field ascent:I
+       215: invokespecial #229                // Method net/minecraft/client/gui/font/providers/BitmapProvider$Glyph."<init>":(FLcom/mojang/blaze3d/platform/NativeImage;IIIIII)V
+       218: invokevirtual #233                // Method net/minecraft/client/gui/font/CodepointMap.put:(ILjava/lang/Object;)Ljava/lang/Object;
+       221: checkcast     #20                 // class net/minecraft/client/gui/font/providers/BitmapProvider$Glyph
+       224: astore        19
+       226: aload         19
+       228: ifnull        247
+       231: getstatic     #237                // Field net/minecraft/client/gui/font/providers/BitmapProvider.LOGGER:Lorg/slf4j/Logger;
+       234: ldc           #239                // String Codepoint \'{}\' declared multiple times in {}
+       236: iload         16
+       238: invokestatic  #245                // Method java/lang/Integer.toHexString:(I)Ljava/lang/String;
+       241: aload_2
+       242: invokeinterface #251,  4          // InterfaceMethod org/slf4j/Logger.warn:(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V
+       247: iinc          15, 1
+       250: goto          126
+       253: iinc          11, 1
+       256: goto          96
+       259: new           #9                  // class net/minecraft/client/gui/font/providers/BitmapProvider
+       262: dup
+       263: aload         4
+       265: aload         10
+       267: invokespecial #254                // Method net/minecraft/client/gui/font/providers/BitmapProvider."<init>":(Lcom/mojang/blaze3d/platform/NativeImage;Lnet/minecraft/client/gui/font/CodepointMap;)V
+       270: astore        11
+       272: aload_3
+       273: ifnull        280
+       276: aload_3
+       277: invokevirtual #257                // Method java/io/InputStream.close:()V
+       280: aload         11
+       282: areturn
+       283: astore        4
+       285: aload_3
+       286: ifnull        305
+       289: aload_3
+       290: invokevirtual #257                // Method java/io/InputStream.close:()V
+       293: goto          305
+       296: astore        5
+       298: aload         4
+       300: aload         5
+       302: invokevirtual #261                // Method java/lang/Throwable.addSuppressed:(Ljava/lang/Throwable;)V
+       305: aload         4
+       307: athrow
+      Exception table:
+         from    to  target type
+            18   272   283   Class java/lang/Throwable
+           289   293   296   Class java/lang/Throwable
+
+  private int getActualGlyphWidth(com.mojang.blaze3d.platform.NativeImage, int, int, int, int);
+    Code:
+         0: iload_2
+         1: iconst_1
+         2: isub
+         3: istore        6
+         5: iload         6
+         7: iflt          65
+        10: iload         4
+        12: iload_2
+        13: imul
+        14: iload         6
+        16: iadd
+        17: istore        7
+        19: iconst_0
+        20: istore        8
+        22: iload         8
+        24: iload_3
+        25: if_icmpge     59
+        28: iload         5
+        30: iload_3
+        31: imul
+        32: iload         8
+        34: iadd
+        35: istore        9
+        37: aload_1
+        38: iload         7
+        40: iload         9
+        42: invokevirtual #283                // Method com/mojang/blaze3d/platform/NativeImage.getLuminanceOrAlpha:(II)B
+        45: ifeq          53
+        48: iload         6
+        50: iconst_1
+        51: iadd
+        52: ireturn
+        53: iinc          8, 1
+        56: goto          22
+        59: iinc          6, -1
+        62: goto          5
+        65: iload         6
+        67: iconst_1
+        68: iadd
+        69: ireturn
+
+  public final java.lang.String toString();
+    Code:
+         0: aload_0
+         1: invokedynamic #299,  0            // InvokeDynamic #7:toString:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Definition;)Ljava/lang/String;
+         6: areturn
+
+  public final int hashCode();
+    Code:
+         0: aload_0
+         1: invokedynamic #303,  0            // InvokeDynamic #7:hashCode:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Definition;)I
+         6: ireturn
+
+  public final boolean equals(java.lang.Object);
+    Code:
+         0: aload_0
+         1: aload_1
+         2: invokedynamic #309,  0            // InvokeDynamic #7:equals:(Lnet/minecraft/client/gui/font/providers/BitmapProvider$Definition;Ljava/lang/Object;)Z
+         7: ireturn
+
+  public net.minecraft.resources.ResourceLocation file();
+    Code:
+         0: aload_0
+         1: getfield      #63                 // Field file:Lnet/minecraft/resources/ResourceLocation;
+         4: areturn
+
+  public int height();
+    Code:
+         0: aload_0
+         1: getfield      #65                 // Field height:I
+         4: ireturn
+
+  public int ascent();
+    Code:
+         0: aload_0
+         1: getfield      #67                 // Field ascent:I
+         4: ireturn
+
+  public int[][] codepointGrid();
+    Code:
+         0: aload_0
+         1: getfield      #69                 // Field codepointGrid:[[I
+         4: areturn
+
+  private static net.minecraft.client.gui.font.providers.BitmapProvider$Glyph[][] method_51644(int);
+    Code:
+         0: iload_0
+         1: anewarray     #314                // class "[Lnet/minecraft/client/gui/font/providers/BitmapProvider$Glyph;"
+         4: areturn
+
+  private static net.minecraft.client.gui.font.providers.BitmapProvider$Glyph[] method_51645(int);
+    Code:
+         0: iload_0
+         1: anewarray     #20                 // class net/minecraft/client/gui/font/providers/BitmapProvider$Glyph
+         4: areturn
+
+  private static java.lang.String method_51753(net.minecraft.client.gui.font.providers.BitmapProvider$Definition);
+    Code:
+         0: aload_0
+         1: getfield      #67                 // Field ascent:I
+         4: aload_0
+         5: getfield      #65                 // Field height:I
+         8: invokedynamic #326,  0            // InvokeDynamic #8:makeConcatWithConstants:(II)Ljava/lang/String;
+        13: areturn
+
+  private static com.mojang.datafixers.kinds.App method_51748(com.mojang.serialization.codecs.RecordCodecBuilder$Instance);
+    Code:
+         0: aload_0
+         1: getstatic     #331                // Field net/minecraft/resources/ResourceLocation.CODEC:Lcom/mojang/serialization/Codec;
+         4: ldc_w         #332                // String file
+         7: invokeinterface #338,  2          // InterfaceMethod com/mojang/serialization/Codec.fieldOf:(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;
+        12: invokedynamic #348,  0            // InvokeDynamic #9:apply:()Ljava/util/function/Function;
+        17: invokevirtual #354                // Method com/mojang/serialization/MapCodec.forGetter:(Ljava/util/function/Function;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+        20: getstatic     #358                // Field com/mojang/serialization/Codec.INT:Lcom/mojang/serialization/codecs/PrimitiveCodec;
+        23: ldc_w         #359                // String height
+        26: bipush        8
+        28: invokestatic  #363                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+        31: invokeinterface #369,  3          // InterfaceMethod com/mojang/serialization/codecs/PrimitiveCodec.optionalFieldOf:(Ljava/lang/String;Ljava/lang/Object;)Lcom/mojang/serialization/MapCodec;
+        36: invokedynamic #375,  0            // InvokeDynamic #10:apply:()Ljava/util/function/Function;
+        41: invokevirtual #354                // Method com/mojang/serialization/MapCodec.forGetter:(Ljava/util/function/Function;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+        44: getstatic     #358                // Field com/mojang/serialization/Codec.INT:Lcom/mojang/serialization/codecs/PrimitiveCodec;
+        47: ldc_w         #376                // String ascent
+        50: invokeinterface #377,  2          // InterfaceMethod com/mojang/serialization/codecs/PrimitiveCodec.fieldOf:(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;
+        55: invokedynamic #381,  0            // InvokeDynamic #11:apply:()Ljava/util/function/Function;
+        60: invokevirtual #354                // Method com/mojang/serialization/MapCodec.forGetter:(Ljava/util/function/Function;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+        63: getstatic     #383                // Field CODEPOINT_GRID_CODEC:Lcom/mojang/serialization/Codec;
+        66: ldc_w         #385                // String chars
+        69: invokeinterface #338,  2          // InterfaceMethod com/mojang/serialization/Codec.fieldOf:(Ljava/lang/String;)Lcom/mojang/serialization/MapCodec;
+        74: invokedynamic #391,  0            // InvokeDynamic #12:apply:()Ljava/util/function/Function;
+        79: invokevirtual #354                // Method com/mojang/serialization/MapCodec.forGetter:(Ljava/util/function/Function;)Lcom/mojang/serialization/codecs/RecordCodecBuilder;
+        82: invokevirtual #395                // Method com/mojang/serialization/codecs/RecordCodecBuilder$Instance.group:(Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;Lcom/mojang/datafixers/kinds/App;)Lcom/mojang/datafixers/Products$P4;
+        85: aload_0
+        86: invokedynamic #405,  0            // InvokeDynamic #13:apply:()Lcom/mojang/datafixers/util/Function4;
+        91: invokevirtual #408                // Method com/mojang/datafixers/Products$P4.apply:(Lcom/mojang/datafixers/kinds/Applicative;Lcom/mojang/datafixers/util/Function4;)Lcom/mojang/datafixers/kinds/App;
+        94: areturn
+
+  private static java.lang.String method_51751(int[], int);
+    Code:
+         0: aload_0
+         1: arraylength
+         2: iload_1
+         3: invokedynamic #412,  0            // InvokeDynamic #14:makeConcatWithConstants:(II)Ljava/lang/String;
+         8: areturn
+
+  private static java.lang.String method_51755();
+    Code:
+         0: ldc_w         #414                // String Expected to find data in codepoint grid
+         3: areturn
+
+  private static java.lang.String method_51756();
+    Code:
+         0: ldc_w         #414                // String Expected to find data in codepoint grid
+         3: areturn
+
+  private static java.util.List method_51754(int[][]);
+    Code:
+         0: new           #418                // class java/util/ArrayList
+         3: dup
+         4: aload_0
+         5: arraylength
+         6: invokespecial #421                // Method java/util/ArrayList."<init>":(I)V
+         9: astore_1
+        10: aload_0
+        11: astore_2
+        12: aload_2
+        13: arraylength
+        14: istore_3
+        15: iconst_0
+        16: istore        4
+        18: iload         4
+        20: iload_3
+        21: if_icmpge     56
+        24: aload_2
+        25: iload         4
+        27: aaload
+        28: astore        5
+        30: aload_1
+        31: new           #423                // class java/lang/String
+        34: dup
+        35: aload         5
+        37: iconst_0
+        38: aload         5
+        40: arraylength
+        41: invokespecial #426                // Method java/lang/String."<init>":([III)V
+        44: invokeinterface #431,  2          // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z
+        49: pop
+        50: iinc          4, 1
+        53: goto          18
+        56: aload_1
+        57: areturn
+
+  private static int[][] method_51750(java.util.List);
+    Code:
+         0: aload_0
+         1: invokeinterface #439,  1          // InterfaceMethod java/util/List.size:()I
+         6: istore_1
+         7: iload_1
+         8: anewarray     #220                // class "[I"
+        11: astore_2
+        12: iconst_0
+        13: istore_3
+        14: iload_3
+        15: iload_1
+        16: if_icmpge     46
+        19: aload_2
+        20: iload_3
+        21: aload_0
+        22: iload_3
+        23: invokeinterface #441,  2          // InterfaceMethod java/util/List.get:(I)Ljava/lang/Object;
+        28: checkcast     #423                // class java/lang/String
+        31: invokevirtual #445                // Method java/lang/String.codePoints:()Ljava/util/stream/IntStream;
+        34: invokeinterface #451,  1          // InterfaceMethod java/util/stream/IntStream.toArray:()[I
+        39: aastore
+        40: iinc          3, 1
+        43: goto          14
+        46: aload_2
+        47: areturn
+
+  static {};
+    Code:
+         0: getstatic     #455                // Field com/mojang/serialization/Codec.STRING:Lcom/mojang/serialization/codecs/PrimitiveCodec;
+         3: invokeinterface #459,  1          // InterfaceMethod com/mojang/serialization/codecs/PrimitiveCodec.listOf:()Lcom/mojang/serialization/Codec;
+         8: invokedynamic #464,  0            // InvokeDynamic #15:apply:()Ljava/util/function/Function;
+        13: invokedynamic #469,  0            // InvokeDynamic #16:apply:()Ljava/util/function/Function;
+        18: invokeinterface #473,  3          // InterfaceMethod com/mojang/serialization/Codec.xmap:(Ljava/util/function/Function;Ljava/util/function/Function;)Lcom/mojang/serialization/Codec;
+        23: invokedynamic #478,  0            // InvokeDynamic #17:apply:()Ljava/util/function/Function;
+        28: invokeinterface #481,  2          // InterfaceMethod com/mojang/serialization/Codec.validate:(Ljava/util/function/Function;)Lcom/mojang/serialization/Codec;
+        33: putstatic     #383                // Field CODEPOINT_GRID_CODEC:Lcom/mojang/serialization/Codec;
+        36: invokedynamic #486,  0            // InvokeDynamic #18:apply:()Ljava/util/function/Function;
+        41: invokestatic  #490                // Method com/mojang/serialization/codecs/RecordCodecBuilder.mapCodec:(Ljava/util/function/Function;)Lcom/mojang/serialization/MapCodec;
+        44: invokedynamic #495,  0            // InvokeDynamic #19:apply:()Ljava/util/function/Function;
+        49: invokevirtual #497                // Method com/mojang/serialization/MapCodec.validate:(Ljava/util/function/Function;)Lcom/mojang/serialization/MapCodec;
+        52: putstatic     #499                // Field CODEC:Lcom/mojang/serialization/MapCodec;
+        55: return
+}
